@@ -1,0 +1,118 @@
+Opdracht van de taak:
+
+Website voor een ziekenhuis
+    ==> inloggen
+    ==> profiel met gegevens
+    ==> afgenomen foto's
+    ==> facturen
+
+    ==> vaccinaties service zelf maken
+
+
+    ==> Tafels reserveren in de cafetaria of op het terras (a.d.h.v. het weer)
+    ==> externe weerapp (service)
+        ==> aan de hand van een webserver
+        ==> bestelling doorgeven
+
+    ==> agenda
+    ==> Jaarlijkse afspraken bij de dokter
+        ==> Afspraken maken
+
+    ==> Bot voor nieuwe afspraken te recomanderen aan de hand van de tijd
+    ==> input welke problemen ==> dokter aanraden
+
+    ==> agenda delen met andere mensen
+    ==> afsrpaken met andere mensen met dezelfde aandoeningen
+    ==> afspreken aan de hand van zelfde soort operaties
+
+    ==> agenda linken aan Google Agenda (ics)
+
+
+----- EIGEN IMPLEMENTATIE -----
+Laravel - MariaDB
+Services:
+    - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
+    - REST Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+--------- AI --------------
+Om deze opdracht succesvol uit te voeren, moet je een architectuur opzetten die microservices (MSA) en service-oriented architecture (SOA) combineert en de gevraagde complexiteit en creativiteit benut. Het project moet niet alleen functioneel werken, maar ook laten zien dat je de concepten van microservices, dataoverdracht, en externe service-integraties begrijpt en toepast.
+
+Aanpak in Microservices
+Hier is hoe je de ziekenhuiswebsite kunt opsplitsen in microservices:
+
+User Service (Gebruikersbeheer):
+
+Functies: Registratie, inloggen, en beheren van gebruikersprofielen.
+Programmeertaal: Bijvoorbeeld Python met Flask of Django (REST API).
+Data-uitwisseling: JSON.
+Database: SQLite of PostgreSQL.
+Endpoints:
+/login: Voor inloggen.
+/register: Voor registratie.
+/profile/{userId}: Voor profielinformatie van een specifieke gebruiker.
+Containers: Docker-container met de specifieke gebruikersservice en zijn afhankelijkheden.
+Media Service (Afbeeldingen en Documenten Opslag):
+
+Functies: Opslaan en ophalen van patiëntgerelateerde afbeeldingen en facturen.
+Programmeertaal: Node.js met Express of een andere snel reagerende backend.
+Data-uitwisseling: JSON voor metadata en een bestandsoverdrachtprotocol (zoals multipart-form-data) voor afbeeldingen.
+Opslag: Object storage (bijvoorbeeld MinIO in een container) voor bestandsoverdracht.
+Endpoints:
+/upload-image: Voor het uploaden van medische beelden.
+/get-image/{imageId}: Voor het ophalen van specifieke beelden.
+/upload-invoice: Voor het uploaden van facturen.
+/get-invoice/{invoiceId}: Voor het ophalen van facturen.
+Vaccination Service (Vaccinatiebeheer):
+
+Functies: Beheer van vaccinatiestatus en afspraken.
+Programmeertaal: Java, bijvoorbeeld met Spring Boot.
+Data-uitwisseling: XML of JSON, afhankelijk van de compatibiliteit met andere services.
+Database: MongoDB om eenvoudig de status en historie op te slaan.
+Endpoints:
+/vaccinations/{userId}: Ophalen van vaccinatiestatus voor een gebruiker.
+/vaccinations/update: Voor het bijwerken van vaccinatiestatussen.
+/schedule-vaccine/{userId}: Voor het inplannen van nieuwe vaccinatieafspraken.
+Reservation Service (Reserveringen Cafetaria):
+
+Functies: Reserveringen voor de cafetaria beheren en afstemmen op het weer.
+Programmeertaal: PHP of Go, met een snelle REST API.
+Data-uitwisseling: JSON.
+Externe Integratie: Weerdata ophalen via een externe weer-API (zoals OpenWeather).
+Endpoints:
+/reserve-table: Om tafels te reserveren.
+/check-availability: Om de beschikbaarheid te controleren op basis van het weer.
+Appointment Service (Afspraakbeheer):
+
+Functies: Afsprakenbeheer voor jaarlijkse controles en andere medische afspraken.
+Programmeertaal: C# of Rust voor een krachtige, veilige API.
+Data-uitwisseling: JSON met hiërarchische data zoals datum, tijd, locatie en arts.
+Database: PostgreSQL voor relationele opslag.
+Integraties:
+Bot: Aanbevelingen voor nieuwe afspraken maken.
+Google Calendar: Synchronisatie met de agenda (ICS-bestanden).
+Endpoints:
+/schedule-appointment: Voor nieuwe afspraken.
+/get-appointment/{appointmentId}: Om afspraakinformatie op te halen.
+/recommend-appointment: Voor een bot-aanbeveling van een afspraak.
+Agenda Sharing Service:
+
+Functies: Agenda’s delen met andere gebruikers met vergelijkbare aandoeningen of medische historie.
+Programmeertaal: Ruby on Rails.
+Data-uitwisseling: JSON.
+Database: Redis of een lichte opslag voor snelle toegang tot gedeelde data.
+Endpoints:
+/share-agenda/{userId}: Om de agenda te delen met anderen.
+/find-similar-patients: Om patiënten met dezelfde aandoening te vinden.
+Overkoepelende Architectuur en Integratie
+API Gateway: Gebruik een API Gateway zoals Kong of NGINX om als toegangspoort te fungeren en verzoeken te routeren naar de juiste services.
+Message Broker: Voor communicatie tussen services, bijvoorbeeld met RabbitMQ of Kafka, zeker als sommige services gebeurtenissen moeten doorgeven (zoals nieuwe afspraakmeldingen).
+Data-uitwisseling: Gebruik JSON voor de meeste data-overdrachten, maar overweeg XML of andere structuren waar complexere datastructuren nodig zijn.
+Externe Integratie: Zorg voor een microservice die weerdata ophaalt en beschikbaar stelt voor andere services, en een die Google Calendar kan integreren voor ICS-kalenderbestanden.
+Containerbeheer: Elk van deze services kan in een aparte Docker-container draaien. Je kunt docker-compose gebruiken voor lokale tests, en een orchestrator zoals Kubernetes als je opschaalt.
+Extra Creatieve Ideeën
+Bot voor Afspraken: Gebruik AI, bijvoorbeeld een eenvoudige ML-classificatie, om aanbevelingen te maken over de beste tijd en arts voor een afspraak.
+UI/UX: Ontwikkel een front-end die alle services combineert, met aandacht voor eenvoudige toegang tot alle services voor de eindgebruiker.
+Geavanceerde Data-overdracht: Werk met hiërarchische JSON-objecten en gebruik GraphQL voor flexibele dataopvraging door de front-end.
+Documentatie: Documenteer alle endpoints en services met Swagger voor goede zichtbaarheid en onderhoud.
+Samenvatting
+Dit ontwerp biedt een flexibele en schaalbare MSA voor een ziekenhuisplatform. Je toont vaardigheden door verschillende programmeertalen, technologieën, en complexe gegevensoverdracht toe te passen. Door microservices slim in te zetten en de services zelfstandig te laten werken, kun je bovendien makkelijk updaten, uitbreiden, en onderhouden zonder het hele systeem aan te passen.
+

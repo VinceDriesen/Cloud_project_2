@@ -1,0 +1,41 @@
+# Applicatie-specifieke bestanden
+app.log
+
+# Build-directories en compilatie-output
+bin/
+obj/
+**/bin/
+**/obj/
+
+# IDE en editor-specifieke directories
+.vscode/
+.vscode-server/
+.vscode-test/
+.devcontainer/
+.idea/                 # voor IntelliJ IDEA/JetBrains
+*.suo                  # voor Visual Studio
+*.user                 # voor Visual Studio
+*.userosscache         # voor Visual Studio
+*.sln.docstates        # voor Visual Studio
+
+# Node.js
+node_modules/
+
+# Dotnet-specifiek
+.dotnet/
+.nuget/
+.ServiceHub/
+*.pdb                  # symbolische debug-informatie
+
+# Lokale gebruikersbestanden
+.bash_history
+.local/
+.cache/
+.env                   # meestal voor gevoelige omgevingsvariabelen
+.DS_Store              # macOS-specifiek
+
+# Dependency- en distributiemappen
+vendor/                # bijv. voor Go modules of PHP-dependencies
+
+# Specifieke tools of libraries die directories kunnen genereren
+db_date/
