@@ -32,7 +32,8 @@ Website voor een ziekenhuis
 Laravel - MariaDB
 Services:
     - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
-    - REST Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+    - GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+    - MQTT Service toevoeging bij de GraphQL service, voor meldingen door te pushen naar de gebruiker over nieuwe gebeurtenissen en aanpassingen van eventen,...
 --------- AI --------------
 Om deze opdracht succesvol uit te voeren, moet je een architectuur opzetten die microservices (MSA) en service-oriented architecture (SOA) combineert en de gevraagde complexiteit en creativiteit benut. Het project moet niet alleen functioneel werken, maar ook laten zien dat je de concepten van microservices, dataoverdracht, en externe service-integraties begrijpt en toepast.
 
