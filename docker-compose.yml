@@ -1,0 +1,112 @@
+# version: '3.8'
+services:
+  website:
+    container_name: hospital_website
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./website/laravel-app:/var/www/html:z
+    ports:
+      - "8000:80"
+    environment:
+      - DB_HOST=db_website
+      - DB_PORT=3306
+      - DB_DATABASE=website_database
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=laravel
+    networks:
+      - hospital_network
+    depends_on:
+      - db_website
+
+  db_website:
+    image: mariadb:latest
+    container_name: db_website
+    restart: unless-stopped
+    environment:
+      - MARIADB_DATABASE=website_database
+      - MARIADB_USER=laravel
+      - MARIADB_PASSWORD=laravel
+      - MARIADB_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./website/db_data:/var/lib/mysql:z
+    networks:
+      - hospital_network
+  
+  # Microservices
+  # User Profile Service
+  user_profile_api:
+    container_name: user_profile_api
+    build:
+      context: ./services/userProfileAPI/userProfileAPIService
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8002:5109"
+    depends_on:
+      - db_user_profile
+    volumes:
+      - ./services/userProfileAPI/userProfileAPIService:/app:Z
+    networks:
+      - hospital_network
+
+  db_user_profile:
+    container_name: db_user_profile
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=user_profile_database
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./services/userProfileAPI/db_data:/var/lib/postgresql/data:Z
+    networks:
+      - hospital_network
+
+  # Agenda Service
+  agenda_api:
+    container_name: agenda_api
+    build:
+      context: ./services/agendaAPI/agendaAPIService
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db_agenda
+    volumes:
+      - ./services/agendaAPI/agendaAPIService:/app:Z
+    networks:
+      - hospital_network
+
+  db_agenda:
+    container_name: db_agenda
+    image: timescale/timescaledb:latest-pg12
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=agenda_database
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./services/agendaAPI/db_data:/var/lib/postgresql/data:Z
+    networks:
+      - hospital_network
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - hospital_network
+
+networks:
+  hospital_network:
+    driver: bridge

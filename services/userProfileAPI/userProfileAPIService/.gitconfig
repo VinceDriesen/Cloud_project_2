@@ -1,0 +1,10 @@
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = VinceDriesen
+	email = vince.driesen@student.uhasselt.be
+[credential]
+	helper = "!f() { /app/.vscode-server/bin/912bb683695358a54ae0c670461738984cbb5b95/node /tmp/vscode-remote-containers-10bd5db2-b738-4bb2-81c1-f11373d26d90.js git-credential-helper $*; }; f"

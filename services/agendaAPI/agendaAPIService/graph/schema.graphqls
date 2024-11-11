@@ -1,0 +1,107 @@
+type Agenda {
+  id: ID!
+  owner: Int!
+  role: Role!
+  agendaItems: [AgendaItem!]!
+  sharedWith: [Int!]!
+}
+
+enum Role {
+  DOCTOR
+  PATIENT
+}
+
+type Appointment {
+  id: ID!
+  agendaItem: AgendaItem!
+  patient: Int
+  doctor: Int!
+  recurring: RecurrenceFrequency!
+}
+
+type AgendaItem {
+  id: ID!
+  title: String!
+  description: String
+  duration: Int!
+  date: Date!
+  participants: [Agenda!]!
+}
+
+type Date {
+  id: ID!
+  day: Int!
+  month: Int!
+  year: Int!
+  hour: Int!
+  minute: Int!
+}
+
+input DateInput {
+  day: Int!
+  month: Int!
+  year: Int!
+  hour: Int!
+  minute: Int!
+}
+
+input CreateAgenda {
+  owner: Int!
+  role: Role!
+}
+
+input CreateAgendaItem {
+  title: String!
+  description: String
+  duration: Int!
+  date: DateInput!
+  participants: [ID!]!
+}
+
+input CreateAppointment {
+  agendaItemId: ID!
+  doctor: Int!
+  recurring: RecurrenceFrequency!
+}
+
+input UpdateAgendaItem {
+  title: String
+  description: String
+  duration: Int
+  date: DateInput
+  participants: [ID!]
+}
+
+enum RecurrenceFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+  NONE
+}
+
+type Mutation {
+  createAgenda(input: CreateAgenda!): Agenda!
+  deleteAgenda(id: ID!): Boolean!
+  updateAgenda(id: ID!, owner: Int, role: Role): Agenda!
+
+  createAgendaItem(agendaId: ID!, input: CreateAgendaItem!): AgendaItem!
+  updateAgendaItem(id: ID!, input: UpdateAgendaItem!): AgendaItem
+  deleteAgendaItem(id: ID!): Boolean!
+
+  createAppointment(input: CreateAppointment!): Appointment!
+  deleteAppointment(id: ID!): Boolean!
+  updateAppointment(id: ID!, agendaItemId: ID, patient: Int, doctor: Int, recurring: RecurrenceFrequency): Appointment!
+}
+
+type Query {
+  agendas: [Agenda!]!
+  agenda(id: ID!): Agenda!
+  agendaItems(agendaId: ID!): [AgendaItem!]!
+  agendaItem(id: ID!): AgendaItem!
+  appointments: [Appointment!]!
+  appointment(id: ID!): Appointment!
+  appointmentsFromAgenda(agendaId: ID!): [Appointment!]!
+
+  agendaOwner(ownerId: Int!): Agenda!
+}
