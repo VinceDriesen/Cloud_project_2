@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\calendar\doctor\AppointmentController;
+use App\Http\Controllers\user\HospitalDataController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Softonic\GraphQL\ClientBuilder;
@@ -47,4 +48,4 @@ Route::post('/calendar/scheduleAppointment', [\App\Http\Controllers\user\calenda
 // Haal de beschikbare dagen op voor de geselecteerde dokter
 Route::get('appointments/doctor/{doctorId}', [AppointmentController::class, 'getAppointmentsFromDoctor']);
 
-
+Route::get('/hospital-data', [HospitalDataController::class, 'index']);

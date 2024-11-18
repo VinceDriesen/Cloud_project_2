@@ -99,6 +99,33 @@ services:
     networks:
       - hospital_network
 
+  # Hospital sensors Service
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqtt5_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./services/sensorsAPI/mosquitto/config:/mosquitto/config:z
+      - ./services/sensorsAPI/mosquitto/data:/mosquitto/data:z
+      - ./services/sensorsAPI/mosquitto/log:/mosquitto/log:z
+    networks:
+      - hospital_network
+
+  hospital_sensors_api:
+    build: 
+      context: ./services/sensorsAPI/sensorsAPIService
+      dockerfile: ./Dockerfile
+    container_name: hospital_sensors_api
+    networks:
+      - hospital_network
+    ports:
+      - "5000:5000"
+    environment:
+      - MQTT_BROKER_HOST=mqtt5_broker
+      - MQTT_BROKER_PORT=1883
+
   adminer:
     image: adminer:4.8.1-standalone
     restart: unless-stopped

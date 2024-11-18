@@ -31,6 +31,7 @@ Website voor een ziekenhuis
 ----- EIGEN IMPLEMENTATIE -----
 Laravel - MariaDB
 Services:
+<<<<<<< Updated upstream
 
 - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
 
@@ -52,6 +53,12 @@ Services:
 
 
 
+=======
+    - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
+    - GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+    - MQTT service voor random fictieve sensor data op te halen van het ziekenhuis. Parkeer plaatsen vrij, temperatuur in het ziekenhuis, O2 levels,... 
+        Dit ga ik doen in C++, aangezien vaak services met MQTT voor low end devices dienen, dus gebruiken ze C/C++ voor perfomantie geheugen. Python kan echter ook, maar vond C++ een extra uitdaging.
+>>>>>>> Stashed changes
 --------- AI --------------
 Om deze opdracht succesvol uit te voeren, moet je een architectuur opzetten die microservices (MSA) en service-oriented architecture (SOA) combineert en de gevraagde complexiteit en creativiteit benut. Het project moet niet alleen functioneel werken, maar ook laten zien dat je de concepten van microservices, dataoverdracht, en externe service-integraties begrijpt en toepast.
 
