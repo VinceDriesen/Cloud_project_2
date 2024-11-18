@@ -31,10 +31,19 @@ Website voor een ziekenhuis
 ----- EIGEN IMPLEMENTATIE -----
 Laravel - MariaDB
 Services:
-    - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
-    - GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
-    - MQTT Service voor algemene ziekenhuis informatie: humidity, avaliable carspots, temperatur... simulerend data mat C++. Gebruik gemaakt van MQTT5 eclipse mosquitto broker voor makkelijk gebruik met C en C++. Keuze van C++ aangezien layer veel IOT toepassingen geschreven worden met een low end taal zoals C en C++.
-- Er wordt ook gebruik gemaakt van een externe weer service, om te zien wat het weer buiten is
+
+- SOAP Service C# (gebreuiksinformatie) - PostgreSQL
+
+- GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+
+- MQTT Service voor algemene ziekenhuis informatie: humidity, avaliable carspots, temperatur... simulerend data mat C++. Gebruik gemaakt van MQTT5 eclipse mosquitto broker voor makkelijk gebruik met C en C++. Keuze van C++ aangezien layer veel IOT toepassingen geschreven worden met een low end taal zoals C en C++.
+
+- Er wordt ook gebruik gemaakt van een externe weer service, om te zien wat het weer buiten is. Dit komt op de home-pagina van de laravel website.
+
+- De weerservice gaat ook nog gebruikt worden met gRPC voor de restaurant reservatie mogelijkheden, om te kijken als buiten gegeten kan worden. gRPC is hier ideaal voor, omdat het vaak tot aanbevolen wordt gebruikt om te communiceren tussen microservices.
+
+- De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. Dit ga ik doen met Java, aangezin dit een veel gebruikte taal is met REST. Hierbij ga ik ook een kleine mysql database linken, om zo bij te houden welke tafels in gebruik zijn en de andere data
+
 
 
 --------- AI --------------
