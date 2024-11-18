@@ -44,3 +44,4 @@ services/sensorsAPI/mosquitto/config/mosquitto.conf
 services/sensorsAPI/mosquitto/data/mosquitto.db
 services/sensorsAPI/mosquitto/config/pwfile
 services/sensorsAPI/mosquitto/log
+/services/restaurantAPI/db_data
