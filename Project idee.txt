@@ -44,6 +44,8 @@ Services:
 
 - De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. Dit ga ik doen met Java, aangezin dit een veel gebruikte taal is met REST. Hierbij ga ik ook een kleine mysql database linken, om zo bij te houden welke tafels in gebruik zijn en de andere data
 
+- Flask API in python, met gRPC tussen communicatie van agenda en deze service. Dit ga ik maken in python, met kleine lichte automatisatie van een dokter afspraak, zonder het handmatig te doen, dat de BOT gaat een paar afspraken gaat aanbevelen bij dokters. 
+
 
 
 --------- AI --------------
