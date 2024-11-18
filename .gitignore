@@ -40,5 +40,8 @@ vendor/                # bijv. voor Go modules of PHP-dependencies
 # Specifieke tools of libraries die directories kunnen genereren
 db_date/
 website/db_data
+<<<<<<< Updated upstream
 services/sensorsAPI/mosquitto/config/mosquitto.conf
+=======
+>>>>>>> Stashed changes
 services/sensorsAPI/mosquitto/data/mosquitto.db

@@ -10,6 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
+        "php-mqtt/client": "^2.1",
         "softonic/graphql-client": "^3.0"
     },
     "require-dev": {
