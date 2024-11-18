@@ -28,24 +28,18 @@ class MqttService
 
     public function subscribeAndGetData($topic)
     {
-        // Abonneer op het topic
         $this->mqttClient->subscribe($topic, function ($topic, $message) {
             $this->data = json_decode($message, true);
             Log::info("Received message on topic $topic: $message");
-            // Verbreek de verbinding na ontvangst van de gegevens
             $this->mqttClient->interrupt();
         });
+        $this->mqttClient->loop(true, 10);
 
-        // Start de MQTT client loop met een korte timeout
-        $this->mqttClient->loop(true, 10);  // loop voor maximaal 10 seconden
-
-        // Ontkoppel netjes na het ontvangen van de data
         $this->mqttClient->disconnect();
 
         return $this->data;
     }
 
-    // Eventuele methode om de data op te slaan
     protected function storeData($data)
     {
         Log::info('Stored data: ' . json_encode($data));
