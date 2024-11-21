@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "be.kuleuven.restaurantapiservice.grpc";
+option java_outer_classname = "WeatherProto";
+
+package weather;
+
+service WeatherService {
+  rpc GetWeather (WeatherRequest) returns (WeatherResponse);
+}
+
+message WeatherRequest {
+  string location = 1;
+}
+
+message WeatherResponse {
+  string location = 1;
+  string forecast = 2;
+  float temperature = 3;
+}

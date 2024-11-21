@@ -16,7 +16,6 @@ trait AgendaManager
 
         $client = ClientBuilder::build('http://agenda_api:8082/query');
 
-
         try {
             switch ($request->type) {
                 case 'add':

@@ -1,15 +1,12 @@
 # Makefile voor het starten van de Docker services
 
 # De naam van de services die je wilt starten
-SERVICES=restaurant_api db_restaurant adminer
-
-# Docker-compose commando om de containers te starten
+SERVICES=restaurantapi db_restaurant adminer
 up:
 	docker-compose up $(SERVICES)
 
-# Docker-compose commando om de containers te stoppen
 down:
-	docker-compose down
+	docker-compose down $(SERVICES)
 
 # Docker-compose commando om de logs van de containers te bekijken
 logs:
@@ -21,3 +18,12 @@ build:
 # Docker-compose commando om de containers te stoppen en te verwijderen
 clean:
 	docker-compose down --volumes --remove-orphans
+
+upall:
+	docker-compose up
+
+downall:
+	docker-compose down
+
+buildall:
+	docker-compose build --progress=plain

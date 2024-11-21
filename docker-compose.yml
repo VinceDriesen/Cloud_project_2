@@ -126,11 +126,11 @@ services:
       - MQTT_BROKER_HOST=mqtt5_broker
       - MQTT_BROKER_PORT=1883
 
-  restaurant_api:
+  restaurantapi:
     build:
       context: ./services/restaurantAPI/restaurantAPIService
       dockerfile: ./Dockerfile
-    container_name: restaurant_api
+    container_name: restaurantapi
     networks:
       - hospital_network
     ports:
@@ -151,7 +151,6 @@ services:
       - "3307:3306"
     volumes:
       - ./services/restaurantAPI/db_data:/var/lib/mysql:z
-      - ./services/restaurantAPI/init.sql:/docker-entrypoint-initdb.d/init.sql:z
     networks:
       - hospital_network
 

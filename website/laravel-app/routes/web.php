@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\user\restaurant\ReserverenController;
+use App\Http\Controllers\user\restaurant\RestaurantHomeController;
 use App\Http\Controllers\user\calendar\doctor\AppointmentController;
 use App\Http\Controllers\user\HospitalDataController;
 use Illuminate\Support\Facades\Route;
@@ -49,3 +51,9 @@ Route::post('/calendar/scheduleAppointment', [\App\Http\Controllers\user\calenda
 Route::get('appointments/doctor/{doctorId}', [AppointmentController::class, 'getAppointmentsFromDoctor']);
 
 Route::get('/hospital-data', [HospitalDataController::class, 'index']);
+
+//Hier komt alles van het restaurant
+Route::get('/restaurant/reserveren', [ReserverenController::class, 'index']);
+Route::get('/restaurant', [RestaurantHomeController::class, 'index']);
+Route::get('/fetchTables', [ReserverenController::class, 'fetchTables'])->name('fetchTables');
+Route::post('/restaurant/reserveTable', [ReserverenController::class, 'reserveTable'])->name('reserveTable');

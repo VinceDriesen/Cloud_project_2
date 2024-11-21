@@ -47,9 +47,16 @@ Services:
     om te kijken als buiten gegeten kan worden. 
     gRPC is hier ideaal voor, omdat het vaak tot aanbevolen wordt gebruikt om te communiceren tussen microservices.
 
-5) - De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. 
+5.1) - De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. 
     Dit ga ik doen met Java, aangezin dit een veel gebruikte taal is met REST. 
-    Hierbij ga ik ook een kleine mysql database linken, om zo bij te houden welke tafels in gebruik zijn en de andere data
+    Hierbij ga ik ook een kleine mysql database linken, om zo bij te houden welke tafels in gebruik zijn en de andere data.
+    Bij het aanmaken van een nieuwe reservatie zal deze ook gelinkt worden met de agenda, dus er wordt verwacht dat je inlogt voor te kunnen reserveren.
+
+5.2) - Voor het restaurant MENU ga ik gebruik maken van een kleine GraphQL service, die de restaurant service dan via 
+        gRPC gaat opvragen om verder dingen te verwerken voor het MENU. 
+        Hiervoor heb ik gekozen, voor het probleem met overFetching en underFetching.
+        Hier ga ik wel geen database aan linken, maar het gewoon laten lezen van een json file. 
+        In productie komt hier waarschijnlijk ook een database bij, om het proces dan makkelijker te maken van nieuwe items en items verwijderen.
 
 6) - Flask API in python, met gRPC tussen communicatie van agenda en deze service. 
     Dit ga ik maken in python, met kleine lichte automatisatie van een dokter afspraak,
