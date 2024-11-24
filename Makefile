@@ -1,7 +1,7 @@
 # Makefile voor het starten van de Docker services
 
 # De naam van de services die je wilt starten
-SERVICES=restaurantapi db_restaurant adminer
+SERVICES=restaurantapi db_restaurant adminer menuapi 
 up:
 	docker-compose up $(SERVICES)
 

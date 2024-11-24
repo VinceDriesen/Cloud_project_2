@@ -45,3 +45,8 @@ services/sensorsAPI/mosquitto/data/mosquitto.db
 services/sensorsAPI/mosquitto/config/pwfile
 services/sensorsAPI/mosquitto/log
 /services/restaurantAPI/db_data
+/services/menuAPI/.idea
+/services/menuAPI/menuAPIService/.idea
+/services/menuAPI/menuAPIService/gradle
+/services/menuProto/.idea
+/services/menuProto/gradle

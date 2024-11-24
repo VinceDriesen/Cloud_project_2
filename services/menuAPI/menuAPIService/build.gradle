@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.google.protobuf' version '0.8.18'
+    id 'com.github.johnrengelman.shadow' version '8.1.0'
+}
+
+group = 'be.kuleuven'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+ext {
+    grpcVersion = '1.53.0'
+    protobufVersion = '3.21.12'
+    googleProtobufVersion = '3.21.12'
+}
+
+dependencies {
+    // Test dependencies
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // gRPC dependencies
+    implementation "io.grpc:grpc-netty-shaded:$grpcVersion"
+    implementation "io.grpc:grpc-protobuf:$grpcVersion"
+    implementation "io.grpc:grpc-stub:$grpcVersion"
+
+    // Protobuf Java library for JSON parsing
+    implementation "com.google.protobuf:protobuf-java-util:$protobufVersion"
+
+    // Jackson voor JSON-bewerking
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+
+    // Je projectafhankelijkheid naar menuProto
+    implementation project(':menuProto')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'be.kuleuven.GrpcServer'
+        )
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'be.kuleuven.GrpcServer'
+    }
+    from('src/main/resources') {
+        into 'resources'
+    }
+}
+
+build.dependsOn shadowJar

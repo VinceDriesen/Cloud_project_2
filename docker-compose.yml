@@ -137,6 +137,14 @@ services:
       - "8090:8080"
     depends_on:
       - db_restaurant
+      - menuapi
+    environment:
+      - DB_HOST=db_restaurant
+      - DB_PORT=3306
+      - DB_DATABASE=restaurant_database
+      - DB_USERNAME=dbrestaurant
+      - DB_PASSWORD=dbrestaurant
+
   
 
   db_restaurant:
@@ -153,6 +161,16 @@ services:
       - ./services/restaurantAPI/db_data:/var/lib/mysql:z
     networks:
       - hospital_network
+  
+  menuapi:
+    build:
+      context: ./services/menuAPI/menuAPIService
+      dockerfile: ./Dockerfile
+    container_name: menuapi
+    networks:
+      - hospital_network
+    ports:
+      - "50051:50051"
 
 
   adminer:

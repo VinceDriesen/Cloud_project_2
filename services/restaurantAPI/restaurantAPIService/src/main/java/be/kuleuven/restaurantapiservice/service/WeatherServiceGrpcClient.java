@@ -3,7 +3,6 @@ package be.kuleuven.restaurantapiservice.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import be.kuleuven.restaurantapiservice.grpc.WeatherRequest;
 import be.kuleuven.restaurantapiservice.grpc.WeatherResponse;
 
 @Service

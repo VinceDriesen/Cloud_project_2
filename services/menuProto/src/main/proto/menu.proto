@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "be.kuleuven.menu";
+option java_outer_classname = "MenuProto";
+
+package menu;
+
+service MenuService {
+  rpc GetMenu(MenuRequest) returns (MenuResponse);
+  rpc GetFood(MenuRequest) returns (FoodResponse);
+  rpc GetDesserts(MenuRequest) returns (DesertResponse);
+  rpc GetDrinks(MenuRequest) returns (DrinkResponse);
+}
+
+message MenuRequest {
+  //Hier heb ik nog niks, ik zou nog vegetarisch en shit kunnen filteren. Maar vind dat opsich niet nodig voor deze service
+  //Dus ga dit nog leeg laten, misschien komt er ooit nog iets?
+}
+
+message MenuResponse {
+  repeated FoodItem foodItems = 1;
+  repeated DesertItem desertItems = 2;
+  repeated DrinkItem drinkItems = 3;
+}
+
+message FoodResponse {
+  repeated FoodItem foodItems = 1;
+}
+
+message DesertResponse {
+  repeated DesertItem desertItems = 1;
+}
+
+message DrinkResponse {
+  repeated DrinkItem drinkItems = 1;
+}
+
+message FoodItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  FoodType type = 5;
+}
+
+message DesertItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  DesertType type = 5;
+}
+
+message DrinkItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  DrinkType type = 5;
+}
+
+message FoodType {
+  string id = 1;
+  string name = 2;
+}
+
+message DesertType {
+  string id = 1;
+  string name = 2;
+}
+
+message DrinkType {
+  string id = 1;
+  string name = 2;
+}

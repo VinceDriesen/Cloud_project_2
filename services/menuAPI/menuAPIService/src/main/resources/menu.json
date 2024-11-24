@@ -1,0 +1,12 @@
+{
+  "foodItems": [
+    { "id": "1", "name": "Burger", "description": "A juicy burger", "price": 8.99, "type": { "id": "1", "name": "Main" } },
+    { "id": "2", "name": "Pizza", "description": "Delicious cheese pizza", "price": 12.50, "type": { "id": "2", "name": "Main" } }
+  ],
+  "desertItems": [
+    { "id": "1", "name": "Ice Cream", "description": "Vanilla ice cream", "price": 4.99, "type": { "id": "1", "name": "Sweet" } }
+  ],
+  "drinkItems": [
+    { "id": "1", "name": "Coke", "description": "Chilled soft drink", "price": 2.50, "type": { "id": "1", "name": "Cold" } }
+  ]
+}

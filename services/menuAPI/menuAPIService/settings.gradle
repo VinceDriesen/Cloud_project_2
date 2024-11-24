@@ -1,4 +1,5 @@
-rootProject.name = 'restaurantAPIService'
+rootProject.name = 'menuAPIService'
 include ':menuProto'
 project(':menuProto').projectDir = file('../../menuProto')
+
 
