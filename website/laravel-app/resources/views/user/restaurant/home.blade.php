@@ -13,11 +13,6 @@
         </div>
 
         <div class="flex justify-center gap-4">
-            <!-- Bestel nu knop met link -->
-            <a href="/restaurant/bestellen" class="py-3 px-8 bg-green-500 hover:bg-green-700 text-white rounded-full font-semibold transition duration-300 ease-in-out">
-                Bestel nu
-            </a>
-
             <!-- Reserveer een tafel knop met link -->
             <a href="/restaurant/reserveren" class="py-3 px-8 bg-blue-500 hover:bg-blue-700 text-white rounded-full font-semibold transition duration-300 ease-in-out">
                 Reserveer een tafel

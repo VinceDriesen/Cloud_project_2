@@ -45,3 +45,5 @@ RUN echo 'module.exports = { plugins: [require("daisyui")], }' > tailwind.config
 # Set permissions for the vendor directory
 RUN chown -R www-data:www-data /var/www/html/vendor \
     && chmod -R 775 /var/www/html/vendor
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0"]

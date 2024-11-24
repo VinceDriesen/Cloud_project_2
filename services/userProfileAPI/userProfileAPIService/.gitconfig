@@ -7,4 +7,4 @@
 	name = VinceDriesen
 	email = vince.driesen@student.uhasselt.be
 [credential]
-	helper = "!f() { /app/.vscode-server/bin/912bb683695358a54ae0c670461738984cbb5b95/node /tmp/vscode-remote-containers-10bd5db2-b738-4bb2-81c1-f11373d26d90.js git-credential-helper $*; }; f"
+	helper = "!f() { /app/.vscode-server/bin/65edc4939843c90c34d61f4ce11704f09d3e5cb6/node /tmp/vscode-remote-containers-f1579552-4223-4098-bd8c-966698a8162f.js git-credential-helper $*; }; f"

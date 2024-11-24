@@ -27,17 +27,8 @@
                         @endif
                     </ul>
                 </div>
-                <div class="dropdown dropdown-hover cursor-pointer">
-                    <div class="text-primary-text-color pr-2 p-1 bg-transparent border-none hover:bg-active-footer-header hover:rounded-2xl">
-                        Group
-                    </div>
-                    <ul class="dropdown-content z-50 menu p-2 shadow bg-foreground rounded-box text-xl w-40">
-                        <li><a href="/selectGroup">select group</a></li>
-                        <li><a href="/group/members">Members</a></li>
-                        <li><a href="/group/sheetmusic">Files</a></li>
-                    </ul>
-                </div>
-                <a href="/contact" class="pl-2 pr-2 p-1 hover:bg-active-footer-header hover:rounded-2xl">Contact</a>
+                <a href="/restaurant" class="pl-2 pr-2 p-1 hover:bg-active-footer-header hover:rounded-2xl">Restaurant</a>
+                <a href="/hospital-data" class="pl-2 pr-2 p-1 hover:bg-active-footer-header hover:rounded-2xl">Data</a>
             </div>
         @endif
         <div class="flex gap-4 items-center w-80 flex-row justify-end">

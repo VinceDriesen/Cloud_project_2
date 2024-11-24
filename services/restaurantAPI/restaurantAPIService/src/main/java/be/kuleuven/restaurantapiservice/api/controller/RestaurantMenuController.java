@@ -34,7 +34,6 @@ public class RestaurantMenuController {
             MenuRequest menuRequest = MenuRequest.newBuilder().build();
             MenuResponse grpcResponse = menuClientService.getMenu(menuRequest);
 
-            // Gebruik Protobuf's JSON-converter
             String jsonResponse = JsonFormat.printer().print(grpcResponse);
             return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
