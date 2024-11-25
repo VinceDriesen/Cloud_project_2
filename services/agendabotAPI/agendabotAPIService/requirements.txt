@@ -1,0 +1,12 @@
+# Core dependencies for FastAPI and gRPC
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+grpcio==1.68.0
+grpcio-tools==1.68.0
+
+# Database-related dependencies for PostgreSQL
+asyncpg==0.30.0
+sqlalchemy==2.0.36  # Compatibel met databases
+databases[postgresql]==0.9.0
+alembic==1.14.0
+psycopg2-binary==2.9.10

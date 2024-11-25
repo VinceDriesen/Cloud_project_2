@@ -10,6 +10,7 @@ import (
 	"context"
 	"log"
 	"strconv"
+	"agendaAPIService/grpcclient"
 )
 
 // CreateAgenda is de resolver voor de createAgenda field.
@@ -161,6 +162,38 @@ func (r *queryResolver) AppointmentsFromAgenda(ctx context.Context, agendaID str
 		return nil, err
 	}
 	return appointments, nil
+}
+
+// BestAppointments is the resolver for the bestAppointments field.
+func (r *queryResolver) BestAppointments(ctx context.Context, userID int, maxRecommendations int) ([]*model.Appointment, error) {
+	client, err := grpcclient.NewAgendabotClient("agendabotapi:50051")
+	if err != nil {
+		log.Printf("Fout bij het aanmaken van AgendabotClient: %v", err)
+		return nil, err
+	}
+	log.Printf("BestAppointments: userID: %d, maxRecommendations: %d", userID, maxRecommendations)
+	appointments, err := client.GetAppointments(int32(userID), int32(maxRecommendations))
+	if err != nil {
+		log.Printf("Fout bij het ophalen van afspraken: %v", err)
+		return nil, err
+	}
+	log.Printf("BestAppointmentssss: userID: %d, maxRecommendations: %d, appointmentssize: %d", userID, maxRecommendations, len(appointments))
+	
+	var result []*model.Appointment
+	
+	for _, appt := range appointments {
+		println("Appointment id: ", appt.Id)
+		appointment, err := db.GetAppointment(int(appt.Id))
+		
+		if err != nil {
+			log.Printf("Fout bij het ophalen van agenda-item %d: %v", appt.Id, err)
+			continue
+		}
+	
+		result = append(result, appointment)
+	}
+	
+	return result, nil
 }
 
 // AgendaOwner is the resolver for the agendaOwner field.

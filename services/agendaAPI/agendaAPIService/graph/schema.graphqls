@@ -102,6 +102,8 @@ type Query {
   appointments: [Appointment!]!
   appointment(id: ID!): Appointment!
   appointmentsFromAgenda(agendaId: ID!): [Appointment!]!
+  bestAppointments(userID: Int!, maxRecommendations: Int!): [Appointment!]!
+
 
   agendaOwner(ownerId: Int!): Agenda!
 }

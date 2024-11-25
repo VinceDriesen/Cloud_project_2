@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package agendabot;
+
+option go_package = "./generated"; // Pas dit pad aan naar jouw gewenste Go-package
+
+message Doctor {
+    int32 id = 1;
+}
+
+message Appointment {
+    int32 id = 1;
+    int32 doctor_id = 2;
+    string date = 3;
+}
+
+message RecommendationRequest {
+    int32 user_id = 1;
+    int32 max_recommendations = 2;
+}
+
+message RecommendationResponse {
+    repeated Appointment appointments = 1;
+}
+
+service AgendabotService {
+    rpc GetAppointments (RecommendationRequest) returns (RecommendationResponse);
+}

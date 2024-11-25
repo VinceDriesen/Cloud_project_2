@@ -92,5 +92,4 @@ class AppointmentController extends Controller
             'availableTimes' => $availableTimes
         ]);
     }
-
 }

@@ -59,3 +59,4 @@ services/sensorsAPI/mosquitto/log
 /services/agendabotAPI/agendabotAPIService/generated/__pycache__
 /services/agendabotAPI/agendabotAPIService/generated/__pycache__
 /services/agendaAPI/agendaAPIService/.idea
+/services/agendabotAPI/agendabotAPIService/.idea

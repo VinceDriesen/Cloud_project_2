@@ -34,38 +34,40 @@ Services:
 
 1) - SOAP Service C# (gebreuiksinformatie) - PostgreSQL
 
-2) - GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
+2 - GraphQL Service met PostgreSQL in Go (Agenda functionaliteit - niet het delen, enkel afspraak maken, wijzigen of annuleren) - TimescaleDB 
 
-3) - MQTT Service voor algemene ziekenhuis informatie: humidity, avaliable carspots, temperatur... simulerend data mat C++. 
+3) - gRPC API in python, communicatie van GraphQL service naar deze service
+    Dit ga ik maken in python, met kleine lichte automatisatie van een dokter afspraak,
+    zonder het handmatig te doen, dat de BOT gaat een paar afspraken gaat aanbevelen bij dokters.
+    Deze gaat de GraphQL service dan fetchen en geven als response. Dit is wel écht hele lichte programmatie van de bot,
+    in theorie zou dit nog veeeel breder kunnen, maar niet de opdracht van de taak.
+
+4) - MQTT Service voor algemene ziekenhuis informatie: humidity, avaliable carspots, temperatur... simulerend data mat C++. 
     Gebruik gemaakt van MQTT5 eclipse mosquitto broker voor makkelijk gebruik met C en C++. 
     Keuze van C++ aangezien layer veel IOT toepassingen geschreven worden met een low end taal zoals C en C++.
 
-4.1) - Er wordt ook gebruik gemaakt van een externe weer service, om te zien wat het weer buiten is. 
+5.1) - Er wordt ook gebruik gemaakt van een externe weer service, om te zien wat het weer buiten is. 
     Dit komt op de home-pagina van de laravel website.
 
-4.2) - De weerservice gaat ook nog gebruikt worden met gRPC voor de restaurant reservatie mogelijkheden, 
+5.2) - De weerservice gaat ook nog gebruikt worden met gRPC voor de restaurant reservatie mogelijkheden, 
     om te kijken als buiten gegeten kan worden. 
     Het is niet perse verplicht om hiermee gRPC te gebruiken, aangezien de API die ik gebruik met REST is gemaakt.
     Echter is het wel makkelijk om die naar gRPC om te zetten, om hiermee te werken. Dus heb hiervoor gekozen om dit ook eens te proberen
 
-5.1) - De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. 
+6.3) - De restaurant service zelf ga ik laten communiceren met REST naar mijn laravel backend. 
     Dit ga ik doen met Java, aangezin dit een veel gebruikte taal is met REST. 
     Hierbij ga ik ook een kleine mysql database linken, om zo bij te houden welke tafels in gebruik zijn en de andere data.
     Bij het aanmaken van een nieuwe reservatie zal deze ook gelinkt worden met de agenda, dus er wordt verwacht dat je inlogt voor te kunnen reserveren.
 
-5.2) - Voor het restaurant MENU ga ik gebruik maken van een kleine gRPC service, die de restaurant service dan via 
-        gRPC gaat opvragen om verder dingen te verwerken voor het MENU. Dit ga ik niet maken met een database, aangezien dit niet echt nodig is.
-        Ik ga hierbij een kleine json lezen, en verwerken met Dart. Dart heb ik gekozen, aangezien het ook wel gebruikt wordt met gRPC en omdat ik dit ook nog niet ken.
-        Dart is niet echt bedoeld voor API aan te maken, eerder voor Mobile apps. Maar vond het wel leuk, om het te proberen.
+7) - Voor het restaurant MENU ga ik gebruik maken van een kleine gRPC service, die de restaurant service dan via 
+    gRPC gaat opvragen om verder dingen te verwerken voor het MENU. Dit ga ik niet maken met een database, aangezien dit niet echt nodig is.
+    Ik ga hierbij een kleine json lezen, en verwerken met Dart. Dart heb ik gekozen, aangezien het ook wel gebruikt wordt met gRPC en omdat ik dit ook nog niet ken.
+    Dart is niet echt bedoeld voor API aan te maken, eerder voor Mobile apps. Maar vond het wel leuk, om het te proberen.
 
-6) - Flask API in python, met gRPC tussen communicatie van agenda en deze service. 
-    Dit ga ik maken in python, met kleine lichte automatisatie van een dokter afspraak,
-    zonder het handmatig te doen, dat de BOT gaat een paar afspraken gaat aanbevelen bij dokters.
-
-7) - GraphQL communicatie voor medische gegevens van laberatorium resultaten en andere gegevens. 
+8) - GraphQL communicatie voor medische gegevens van laberatorium resultaten en andere gegevens. 
     Hierbij ga ik MongoDB gebruiken, om zo een wide column database te hebben. Dit ga ik maken met Node.
 
-8) - REST API om meldingen te verstuderen van de agenda en medische labo gegevens. 
+9) - REST API om meldingen te verstuderen van de agenda en medische labo gegevens. 
     Dit weer met gRPC onderling verbinden. Dir met een postgresql database, om zo actuele tijden bij te houden van de meldingen etc.
 
 --------- AI --------------

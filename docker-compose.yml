@@ -78,11 +78,13 @@ services:
     ports:
       - "8082:8082"
     depends_on:
+      - agendabotapi
       - db_agenda
     volumes:
       - ./services/agendaAPI/agendaAPIService:/app:Z
     networks:
       - hospital_network
+    # command: tail -f /dev/null
 
   db_agenda:
     container_name: db_agenda
@@ -98,6 +100,25 @@ services:
       - ./services/agendaAPI/db_data:/var/lib/postgresql/data:Z
     networks:
       - hospital_network
+      
+
+  ## Agendabot service
+  agendabotapi:
+    container_name: agendabotapi
+    build:
+      context: ./services/agendabotAPI/agendabotAPIService
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - "50052:50051"
+    networks:
+      - hospital_network
+    volumes:
+      - ./services/agendabotAPI/agendabotAPIService/src:/app/src:Z
+      - ./services/agendabotAPI/agendabotAPIService/generated:/app/generated:Z
+    depends_on:
+      - db_agenda
+    # command: tail -f /dev/null
 
   # Hospital sensors Service
   mosquitto:

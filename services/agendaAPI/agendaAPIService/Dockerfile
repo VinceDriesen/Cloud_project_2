@@ -27,8 +27,8 @@ COPY . ./
 # Bouw de applicatie
 RUN CGO_ENABLED=0 GOOS=linux go build -o /server
 
-# # Expose de poort
+# Expose de poort
 EXPOSE 8082
 
-# # Start de server
+# De CMD-instructie verwijderen zodat de server niet automatisch start
 CMD ["/server"]

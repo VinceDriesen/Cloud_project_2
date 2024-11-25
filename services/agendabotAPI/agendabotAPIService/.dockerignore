@@ -1,0 +1,6 @@
+# Dockerignore
+Dockerfile
+Makefile
+test_main.http
+*.pyc
+__pycache__/

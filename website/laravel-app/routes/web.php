@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\user\restaurant\ReserverenController;
 use App\Http\Controllers\user\restaurant\RestaurantHomeController;
 use App\Http\Controllers\user\calendar\doctor\AppointmentController;
+use App\Http\Controllers\user\calendar\ScheduleAppointmentController;
 use App\Http\Controllers\user\HospitalDataController;
 use App\Http\Controllers\user\restaurant\MenuController;
 use Illuminate\Support\Facades\Route;
@@ -46,10 +47,12 @@ Route::post('/calendar/editevent', [\App\Http\Controllers\user\calendar\EditEven
 Route::get('/calendar/newevent', [\App\Http\Controllers\user\calendar\NewEventController::class, 'index']);
 Route::post('/calendar/newevent', [\App\Http\Controllers\user\calendar\NewEventController::class, 'saveEvent']);
 Route::get('/calendar/scheduleAppointment', [\App\Http\Controllers\user\calendar\ScheduleAppointmentController::class, 'index']);
+Route::get('getOptimalAppointments', [ScheduleAppointmentController::class, 'getOptimalAppointments']);
 Route::post('/calendar/scheduleAppointment', [\App\Http\Controllers\user\calendar\ScheduleAppointmentController::class, 'scheduleAppointment']);
 
 // Haal de beschikbare dagen op voor de geselecteerde dokter
 Route::get('appointments/doctor/{doctorId}', [AppointmentController::class, 'getAppointmentsFromDoctor']);
+
 
 Route::get('/hospital-data', [HospitalDataController::class, 'index']);
 
