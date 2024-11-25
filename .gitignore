@@ -50,3 +50,5 @@ services/sensorsAPI/mosquitto/log
 /services/menuAPI/menuAPIService/gradle
 /services/menuProto/.idea
 /services/menuProto/gradle
+/services/agendaAPI/agendaAPIService/.idea
+services/agendabotAPI/agendabotAPIService/.idea/workspace.xml
