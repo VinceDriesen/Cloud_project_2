@@ -37,6 +37,7 @@ node_modules/
 # Dependency- en distributiemappen
 vendor/                # bijv. voor Go modules of PHP-dependencies
 
+
 # Specifieke tools of libraries die directories kunnen genereren
 db_date/
 website/db_data
@@ -50,3 +51,11 @@ services/sensorsAPI/mosquitto/log
 /services/menuAPI/menuAPIService/gradle
 /services/menuProto/.idea
 /services/menuProto/gradle
+/services/agendaAPI/agendaAPIService/.idea
+*.pyc
+*.pyc
+*.pyc
+/services/agendabotAPI/agendabotAPIService/generated
+/services/agendabotAPI/agendabotAPIService/generated/__pycache__
+/services/agendabotAPI/agendabotAPIService/generated/__pycache__
+/services/agendaAPI/agendaAPIService/.idea
