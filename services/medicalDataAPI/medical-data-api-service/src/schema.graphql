@@ -1,0 +1,95 @@
+type Query {
+    getLabResult(resultId: ID!): LabResult
+    getLabResults(userId: Int!, filter: LabResultFilterInput): [LabResult]
+    getVaccinationRecords(userId: Int!): [VaccinationRecord]
+    getMedicalImages(userId: Int!): [MedicalImage]
+    getInvoices(userId: Int!): [Invoice]
+}
+
+type Mutation {
+    addLabResult(userId: Int!, input: LabResultInput!): LabResult
+    updateLabResult(resultId: ID!, input: LabResultInput!): LabResult
+    addVaccinationRecord(userId: Int!, input: VaccinationInput!): VaccinationRecord
+    uploadMedicalImage(userId: Int!, input: MedicalImageInput!): MedicalImage
+    addInvoice(userId: Int!, input: InvoiceInput!): Invoice
+}
+
+type LabResult {
+    id: ID!
+    userId: Int!
+    testName: String!
+    resultValue: String!
+    unit: String
+    referenceRange: String
+    date: String!
+    notes: String
+}
+
+input LabResultInput {
+    testName: String!
+    resultValue: String!
+    unit: String
+    referenceRange: String
+    date: String!
+    notes: String
+}
+
+input LabResultFilterInput {
+    dateRange: DateRangeInput
+    testName: String
+}
+
+type VaccinationRecord {
+    id: ID!
+    userId: Int!
+    vaccineName: String!
+    dateAdministered: String!
+    administeredBy: String
+    notes: String
+}
+
+input VaccinationInput {
+    vaccineName: String!
+    dateAdministered: String!
+    administeredBy: String
+    notes: String
+}
+
+type MedicalImage {
+    id: ID!
+    userId: Int!
+    imageUrl: String!
+    description: String
+    dateUploaded: String!
+}
+
+input MedicalImageInput {
+    imageUrl: String!
+    description: String
+    dateUploaded: String!
+}
+
+type Invoice {
+    id: ID!
+    userId: Int!
+    amount: Float!
+    dateIssued: String!
+    status: InvoiceStatus!
+}
+
+input InvoiceInput {
+    amount: Float!
+    dateIssued: String!
+    status: InvoiceStatus!
+}
+
+input DateRangeInput {
+    startDate: String
+    endDate: String
+}
+
+enum InvoiceStatus {
+    PAID
+    UNPAID
+    PENDING
+}
