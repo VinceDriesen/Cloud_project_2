@@ -1,202 +1,233 @@
 # version: '3.8'
 services:
-  website:
-    container_name: hospital_website
-    build:
-      context: ./website
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    volumes:
-      - ./website/laravel-app:/var/www/html:z
-    ports:
-      - "8000:80"
-    environment:
-      - DB_HOST=db_website
-      - DB_PORT=3306
-      - DB_DATABASE=website_database
-      - DB_USERNAME=laravel
-      - DB_PASSWORD=laravel
-    networks:
-      - hospital_network
-    depends_on:
-      - db_website
+  # website:
+  #   container_name: hospital_website
+  #   build:
+  #     context: ./website
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./website/laravel-app:/var/www/html:z
+  #   ports:
+  #     - "8000:80"
+  #   environment:
+  #     - DB_HOST=db_website
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=website_database
+  #     - DB_USERNAME=laravel
+  #     - DB_PASSWORD=laravel
+  #   networks:
+  #     - hospital_network
+  #   depends_on:
+  #     - db_website
 
-  db_website:
-    image: mariadb:latest
-    container_name: db_website
-    restart: unless-stopped
-    environment:
-      - MARIADB_DATABASE=website_database
-      - MARIADB_USER=laravel
-      - MARIADB_PASSWORD=laravel
-      - MARIADB_ROOT_PASSWORD=root
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./website/db_data:/var/lib/mysql:z
-    networks:
-      - hospital_network
+  # db_website:
+  #   image: mariadb:latest
+  #   container_name: db_website
+  #   restart: unless-stopped
+  #   environment:
+  #     - MARIADB_DATABASE=website_database
+  #     - MARIADB_USER=laravel
+  #     - MARIADB_PASSWORD=laravel
+  #     - MARIADB_ROOT_PASSWORD=root
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ./website/db_data:/var/lib/mysql:z
+  #   networks:
+  #     - hospital_network
   
-  # Microservices
-  # User Profile Service
-  user_profile_api:
-    container_name: user_profile_api
-    build:
-      context: ./services/userProfileAPI/userProfileAPIService
-      dockerfile: ./Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8002:5109"
-    depends_on:
-      - db_user_profile
-    volumes:
-      - ./services/userProfileAPI/userProfileAPIService:/app:Z
-    networks:
-      - hospital_network
+  # # Microservices
+  # # User Profile Service
+  # user_profile_api:
+  #   container_name: user_profile_api
+  #   build:
+  #     context: ./services/userProfileAPI/userProfileAPIService
+  #     dockerfile: ./Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8002:5109"
+  #   depends_on:
+  #     - db_user_profile
+  #   volumes:
+  #     - ./services/userProfileAPI/userProfileAPIService:/app:Z
+  #   networks:
+  #     - hospital_network
 
-  db_user_profile:
-    container_name: db_user_profile
-    image: postgres:14
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=user_profile_database
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./services/userProfileAPI/db_data:/var/lib/postgresql/data:Z
-    networks:
-      - hospital_network
+  # db_user_profile:
+  #   container_name: db_user_profile
+  #   image: postgres:14
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=user_profile_database
+  #   ports:
+  #     - "5433:5432"
+  #   volumes:
+  #     - ./services/userProfileAPI/db_data:/var/lib/postgresql/data:Z
+  #   networks:
+  #     - hospital_network
 
-  # Agenda Service
-  agenda_api:
-    container_name: agenda_api
-    build:
-      context: ./services/agendaAPI/agendaAPIService
-      dockerfile: ./Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8082:8082"
-    depends_on:
-      - agendabotapi
-      - db_agenda
-    volumes:
-      - ./services/agendaAPI/agendaAPIService:/app:Z
-    networks:
-      - hospital_network
-    # command: tail -f /dev/null
+  # # Agenda Service
+  # agenda_api:
+  #   container_name: agenda_api
+  #   build:
+  #     context: ./services/agendaAPI/agendaAPIService
+  #     dockerfile: ./Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8082:8082"
+  #   depends_on:
+  #     - agendabotapi
+  #     - db_agenda
+  #   volumes:
+  #     - ./services/agendaAPI/agendaAPIService:/app:Z
+  #   networks:
+  #     - hospital_network
+  #   # command: tail -f /dev/null
 
-  db_agenda:
-    container_name: db_agenda
-    image: timescale/timescaledb:latest-pg12
-    restart: unless-stopped
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=agenda_database
-    ports:
-      - "5434:5432"
-    volumes:
-      - ./services/agendaAPI/db_data:/var/lib/postgresql/data:Z
-    networks:
-      - hospital_network
+  # db_agenda:
+  #   container_name: db_agenda
+  #   image: timescale/timescaledb:latest-pg12
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=agenda_database
+  #   ports:
+  #     - "5434:5432"
+  #   volumes:
+  #     - ./services/agendaAPI/db_data:/var/lib/postgresql/data:Z
+  #   networks:
+  #     - hospital_network
       
 
-  ## Agendabot service
-  agendabotapi:
-    container_name: agendabotapi
-    build:
-      context: ./services/agendabotAPI/agendabotAPIService
-      dockerfile: ./Dockerfile
-    restart: unless-stopped
-    ports:
-      - "50052:50051"
-    networks:
-      - hospital_network
-    volumes:
-      - ./services/agendabotAPI/agendabotAPIService/src:/app/src:Z
-      - ./services/agendabotAPI/agendabotAPIService/generated:/app/generated:Z
-    depends_on:
-      - db_agenda
-    # command: tail -f /dev/null
+  # ## Agendabot service
+  # agendabotapi:
+  #   container_name: agendabotapi
+  #   build:
+  #     context: ./services/agendabotAPI/agendabotAPIService
+  #     dockerfile: ./Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "50052:50051"
+  #   networks:
+  #     - hospital_network
+  #   volumes:
+  #     - ./services/agendabotAPI/agendabotAPIService/src:/app/src:Z
+  #     - ./services/agendabotAPI/agendabotAPIService/generated:/app/generated:Z
+  #   depends_on:
+  #     - db_agenda
+  #   # command: tail -f /dev/null
 
-  # Hospital sensors Service
-  mosquitto:
-    image: eclipse-mosquitto
-    container_name: mqtt5_broker
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./services/sensorsAPI/mosquitto/config:/mosquitto/config:z
-      - ./services/sensorsAPI/mosquitto/data:/mosquitto/data:z
-      - ./services/sensorsAPI/mosquitto/log:/mosquitto/log:z
-    networks:
-      - hospital_network
+  # # Hospital sensors Service
+  # mosquitto:
+  #   image: eclipse-mosquitto
+  #   container_name: mqtt5_broker
+  #   ports:
+  #     - "1883:1883"
+  #     - "9001:9001"
+  #   volumes:
+  #     - ./services/sensorsAPI/mosquitto/config:/mosquitto/config:z
+  #     - ./services/sensorsAPI/mosquitto/data:/mosquitto/data:z
+  #     - ./services/sensorsAPI/mosquitto/log:/mosquitto/log:z
+  #   networks:
+  #     - hospital_network
 
-  hospital_sensors_api:
-    build: 
-      context: ./services/sensorsAPI/sensorsAPIService
-      dockerfile: ./Dockerfile
-    container_name: hospital_sensors_api
-    networks:
-      - hospital_network
-    ports:
-      - "5000:5000"
-    environment:
-      - MQTT_BROKER_HOST=mqtt5_broker
-      - MQTT_BROKER_PORT=1883
+  # hospital_sensors_api:
+  #   build: 
+  #     context: ./services/sensorsAPI/sensorsAPIService
+  #     dockerfile: ./Dockerfile
+  #   container_name: hospital_sensors_api
+  #   networks:
+  #     - hospital_network
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - MQTT_BROKER_HOST=mqtt5_broker
+  #     - MQTT_BROKER_PORT=1883
 
-  restaurantapi:
-    build:
-      context: ./services/restaurantAPI/restaurantAPIService
-      dockerfile: ./Dockerfile
-    container_name: restaurantapi
-    networks:
-      - hospital_network
-    ports:
-      - "8090:8080"
-    depends_on:
-      - db_restaurant
-      - menuapi
-    environment:
-      - DB_HOST=db_restaurant
-      - DB_PORT=3306
-      - DB_DATABASE=restaurant_database
-      - DB_USERNAME=dbrestaurant
-      - DB_PASSWORD=dbrestaurant
+  # # Restaurant Service
+  # restaurantapi:
+  #   build:
+  #     context: ./services/restaurantAPI/restaurantAPIService
+  #     dockerfile: ./Dockerfile
+  #   container_name: restaurantapi
+  #   networks:
+  #     - hospital_network
+  #   ports:
+  #     - "8090:8080"
+  #   depends_on:
+  #     - db_restaurant
+  #     - menuapi
+  #   environment:
+  #     - DB_HOST=db_restaurant
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=restaurant_database
+  #     - DB_USERNAME=dbrestaurant
+  #     - DB_PASSWORD=dbrestaurant
 
+  # db_restaurant:
+  #   container_name: db_restaurant
+  #   image: mysql:latest
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpassword
+  #     - MYSQL_DATABASE=restaurant_database
+  #     - MYSQL_USER=dbrestaurant
+  #     - MYSQL_PASSWORD=dbrestaurant
+  #   ports:
+  #     - "3307:3306"
+  #   volumes:
+  #     - ./services/restaurantAPI/db_data:/var/lib/mysql:z
+  #   networks:
+  #     - hospital_network
   
+  # menuapi:
+  #   build:
+  #     context: ./services/menuAPI/menuAPIService
+  #     dockerfile: ./Dockerfile
+  #   container_name: menuapi
+  #   networks:
+  #     - hospital_network
+  #   ports:
+  #     - "50051:50051"
 
-  db_restaurant:
-    container_name: db_restaurant
-    image: mysql:latest
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-      - MYSQL_DATABASE=restaurant_database
-      - MYSQL_USER=dbrestaurant
-      - MYSQL_PASSWORD=dbrestaurant
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./services/restaurantAPI/db_data:/var/lib/mysql:z
-    networks:
-      - hospital_network
-  
-  menuapi:
+  #Medical data service
+  medicaldataapi:
     build:
-      context: ./services/menuAPI/menuAPIService
+      context: ./services/medicalDataAPI/medical-data-api-service
       dockerfile: ./Dockerfile
-    container_name: menuapi
+    container_name: medicaldataapi
+    volumes:
+      - ./services/medicalDataAPI/medical-data-api-service:/app:Z
     networks:
       - hospital_network
     ports:
-      - "50051:50051"
+      - "4000:4000"
+    depends_on:
+      - db_medical_data
+    command: tail -f /dev/null
+
+  db_medical_data:
+    container_name: db_medical_data
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=medical_data_database
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./services/medicalDataAPI/db_data:/data/db:z
+    networks:
+      - hospital_network
 
 
   adminer:
-    image: adminer:4.8.1-standalone
-    restart: unless-stopped
+    container_name: adminer
+    build:
+      context: ./adminer
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     networks:

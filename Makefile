@@ -1,7 +1,7 @@
 # Makefile voor het starten van de Docker services
 
 # De naam van de services die je wilt starten
-SERVICES=agenda_api db_agenda adminer agendabotapi 
+SERVICES = medicaldataapi db_medical_data adminer 
 up:
 	docker-compose up $(SERVICES)
 
